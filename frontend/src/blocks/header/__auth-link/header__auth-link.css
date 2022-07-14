@@ -1,0 +1,14 @@
+.header__auth-link {
+    font-size: 18px;
+    line-height: 22px;
+    color: #fff;
+    text-decoration: none;
+    transition: opacity .2s ease-in;
+}
+
+  .header__auth-link:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  

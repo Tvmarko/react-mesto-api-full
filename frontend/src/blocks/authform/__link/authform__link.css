@@ -1,0 +1,11 @@
+.authform__link {
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+    transition: opacity .2s ease-in;
+  }
+  
+  .authform__link:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
