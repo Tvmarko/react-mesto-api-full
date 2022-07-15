@@ -5,10 +5,10 @@ import deletebutton from "../images/delete-button.svg";
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     const currentUser = React.useContext(CurrentUserContext);
 
-    const isOwn = card.owner._id === currentUser._id;
+    const isOwn = card.owner === currentUser._id;
     const cardDeleteButtonClassName = `elements__element-delete ${isOwn ? "elements__element-delete_active" : ''}`; 
 
-    const isLiked = card.likes.some(user => user._id === currentUser._id);
+    const isLiked = card.likes.some(user => user === currentUser._id);
     const cardLikeButtonClassName = `elements__element-like ${isLiked ? "elements__element-like_active": ''}`;
 
     function handleClick() {

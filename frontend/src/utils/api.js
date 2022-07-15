@@ -5,67 +5,76 @@ class Api {
       this._headers = headers;
     }
 
-    _makeRequest = (url, options = {}) => {
-      return fetch(url, options)
-      .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-    }
+    _checkErrors(res) {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    };
 
     getProfileInfo() {
-      return this._makeRequest(`${this._baseUrl}/users/me`, {
-      headers: this._headers
+      return fetch(`${this._baseUrl}/users/me`, {
+        headers: {authorization: `Bearer ${localStorage.getItem('jwt')}`, ...this._headers}
     })
+    .then(this._checkErrors);
   } 
 
     getInitialCards() {
-      return this._makeRequest(`${this._baseUrl}/cards`, {
-      headers: this._headers
+      return fetch(`${this._baseUrl}/cards`, {
+        headers: {authorization: `Bearer ${localStorage.getItem('jwt')}`, ...this._headers}
     })
+    .then(this._checkErrors);
   } 
 
     editProfile(user) {
-      return this._makeRequest(`${this._baseUrl}/users/me`, {
+      return fetch(`${this._baseUrl}/users/me`, {
         method: 'PATCH',
-        headers: this._headers,
+        headers: {authorization: `Bearer ${localStorage.getItem('jwt')}`, ...this._headers},
         body: JSON.stringify({
           name: user.name,
           about: user.about
         })
       })
+      .then(this._checkErrors);
     }
 
    editAvatar(avatar) {
-    return this._makeRequest(`${this._baseUrl}/users/me/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {authorization: `Bearer ${localStorage.getItem('jwt')}`, ...this._headers},
       body: JSON.stringify({
         avatar
       })
     })
+    .then(this._checkErrors);
   }
 
     addCard(card) {
-      return this._makeRequest(`${this._baseUrl}/cards`, {
+      return fetch(`${this._baseUrl}/cards`, {
         method: 'POST',
-        headers: this._headers,
+        headers: {authorization: `Bearer ${localStorage.getItem('jwt')}`, ...this._headers},
         body: JSON.stringify({
           name: card.name,
           link: card.link
         })
       })
+      .then(this._checkErrors);
     }
 
     deleteCard(card) {
-      return this._makeRequest(`${this._baseUrl}/cards/${card._id}`, {
+      return fetch(`${this._baseUrl}/cards/${card._id}`, {
         method: 'DELETE',
-        headers: this._headers
+        headers: {authorization: `Bearer ${localStorage.getItem('jwt')}`, ...this._headers}
       })
+      .then(this._checkErrors);
     }
 
     handleLikeCardStatus(card, likeCardStatus) {
-      return this._makeRequest(`${this._baseUrl}/cards/${card}/likes`, {
+      return fetch(`${this._baseUrl}/cards/${card}/likes`, {
         method: (likeCardStatus ? 'PUT': 'DELETE'),
-        headers: this._headers
+        headers: {authorization: `Bearer ${localStorage.getItem('jwt')}`, ...this._headers}
       })
+      .then(this._checkErrors);
     }
  }
    
