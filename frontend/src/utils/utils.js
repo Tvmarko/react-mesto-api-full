@@ -1,5 +1,5 @@
 const apiSettings = {
-    baseUrl: 'http://localhost:3001',
+    baseUrl: 'http://10.128.0.11:3000/',
     headers: {
       'Content-Type': 'application/json',
     },
