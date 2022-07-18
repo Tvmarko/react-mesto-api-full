@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'https://project-by-tvmarko.nomoredomains.xyz';
 
 function checkResponse(res) {
   if (res.ok) {

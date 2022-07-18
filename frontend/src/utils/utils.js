@@ -1,5 +1,5 @@
 const apiSettings = {
-    baseUrl: 'http://10.128.0.11:3000/',
+    baseUrl: 'https://project-by-tvmarko.nomoredomains.xyz',
     headers: {
       'Content-Type': 'application/json',
     },
