@@ -3,7 +3,10 @@ const allowedCors = [
   'http://project-by-tvmarko.nomoredomains.xyz',
   'https://api.project-by-tvmarko.nomoredomains.xyz',
   'http://api.project-by-tvmarko.nomoredomains.xyz',
+  'https://localhost:3000',
   'http://localhost:3000',
+  'https://localhost:3001',
+  'http://localhost:3001',
 ];
 
 module.exports = ((req, res, next) => {
