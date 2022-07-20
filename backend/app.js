@@ -57,9 +57,10 @@ app.use(auth);
 app.use('/users', userRoutes);
 app.use('/cards', cardRoutes);
 
+app.use((req, res, next) => next(new NotFoundError('Запрашиваемые данные не найдены')));
+
 app.use(errorLogger);
 
-app.use((req, res, next) => next(new NotFoundError('Запрашиваемые данные не найдены')));
 app.use(errors());
 app.use(errorsHandler);
 
