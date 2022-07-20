@@ -29,6 +29,8 @@ function App() {
   const history = useHistory();
   
   useEffect(() => {
+    checkToken();
+    history.push('/');
     if(loggedIn) {
       Promise.all([api.getProfileInfo(), api.getInitialCards()])
       .then(([userData, cards]) => {
@@ -39,7 +41,7 @@ function App() {
         console.log(err); 
       });
     }
-  }, [loggedIn]);
+  }, [loggedIn, history]);
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');
@@ -48,7 +50,8 @@ function App() {
         .then((res) => {
           if(res){
             setEmail(res.data.email);
-            handleLoggedIn();
+            checkToken();
+           // handleLoggedIn();
             history.push("/");
           }
         })
@@ -77,8 +80,9 @@ function App() {
       .then((data) => {
         if(data.token){
           localStorage.setItem('jwt', data.token);
+          checkToken();
           setEmail(email);
-          handleLoggedIn();
+          //handleLoggedIn();
           history.push("/");
         }
       })
@@ -95,9 +99,16 @@ function App() {
     history.push("/sign-in");
   }
 
-  function handleLoggedIn() {
-    setLoggedIn(true);
+  function checkToken() {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      setLoggedIn(true);
+    }
   }
+
+  /*function handleLoggedIn() {
+    setLoggedIn(true);
+  }*/
 
   function handleUpdateUser(user) {
     api.editProfile(user)
