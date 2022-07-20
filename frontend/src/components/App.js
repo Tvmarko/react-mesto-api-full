@@ -76,9 +76,9 @@ function App() {
     auth.login(email, password)
       .then((data) => {
         if(data.token){
+          localStorage.setItem('jwt', data.token);
           setEmail(email);
           handleLoggedIn();
-          localStorage.setItem('jwt', data.token);
           history.push("/");
         }
       })
@@ -89,16 +89,16 @@ function App() {
   }
 
   function handleSignOut() {
+    localStorage.removeItem('jwt');
     setLoggedIn(false);
     setEmail('');
-    localStorage.removeItem('jwt');
     history.push("/sign-in");
   }
 
   function handleLoggedIn() {
     setLoggedIn(true);
   }
-  
+
   function handleUpdateUser(user) {
     api.editProfile(user)
       .then((userUpdatedData) => {
